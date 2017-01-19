@@ -1,0 +1,27 @@
+$TTL 3600       ; 1 hour
+@		IN	SOA www.example.com. postmaster.example.com. (
+				2017012001	; Serial (yymmddxx)
+				8H		; Refresh 8 hours
+				2H		; Retry 2 hours
+				1W		; Expire 1 week
+				1D )		; Minimum 1 day
+		IN	A		10.0.0.1
+		IN	NS		ns1.example.com.
+		IN	NS		ns2.example.com.
+
+		IN	MX	1	ASPMX.L.GOOGLE.COM.
+		IN	MX	5	ALT1.ASPMX.L.GOOGLE.COM.
+		IN	MX	5	ALT2.ASPMX.L.GOOGLE.COM.
+		IN	MX	10	ASPMX2.GOOGLEMAIL.COM.
+		IN	MX	10	ASPMX3.GOOGLEMAIL.COM.
+
+ns1		IN	A		10.0.0.2
+ns2		IN	A		10.0.0.3
+www		IN	A		10.0.0.4
+mail		IN	CNAME		ghs.google.com.
+
+; The following records are the needed records to setup the delegated DNS
+; subdomain exfil.example.com.
+
+badguydnsserver	IN	A		192.168.0.55
+exfil		IN	NS		badguyserver.example.com.
