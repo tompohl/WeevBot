@@ -1,0 +1,2 @@
+cat output.log|grep "\.$1\."|grep IN|sort|uniq|awk -F . '{print $3 " " $1}'|sort -n|awk -F\; '{print $2}'|xxd -r -p
+echo
