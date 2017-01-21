@@ -4,7 +4,7 @@ Browser Based DNS Exfiltration
 Disclaimer: This project is a proof of concept. We don't condone doing
 illegal activities with this code. Only use this example against targets
 that you own/control and have permission to target. Also, this code comes
-without any warranty, it might kills kittens so just don't.
+without any warranty, it might kill kittens so just don't.
 
 The talk that explains these files is here:
 https://www.youtube.com/secdsm
