@@ -7,7 +7,7 @@ that you own/control and have permission to target. Also, this code comes
 without any warranty, it might kill kittens so just don't.
 
 The talk that explains these files is here:
-https://www.youtube.com/secdsm
+https://youtu.be/zN2WijXEY9k
 
 Files:
 client_example.html - Code to run in the unsuspecting user's browser to extract text from baconipsum.com
